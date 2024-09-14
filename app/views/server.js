@@ -8,6 +8,17 @@ const port = process.env.PORT || 3000;
 // Servir archivos estáticos desde la carpeta 'static'
 app.use(express.static(path.join(__dirname, 'static')));
 
+
+// Manejar rutas de API y redirigirlas al backend
+app.use('/api', (req, res) => {
+    // Reemplaza 'http://localhost:5000' con la URL de tu servidor Flask
+    const apiUrl = `http://localhost:5000${req.url}`;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => res.json(data))
+        .catch(error => res.status(500).json({ error: 'Error fetching data from backend' }));
+});
+
 // Manejar ruta para la página principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'static', 'index.html'));

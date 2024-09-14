@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/propertyTypes')
+    fetch('/api/propertyTypes')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.querySelector('#propertyTypesTable tbody');
