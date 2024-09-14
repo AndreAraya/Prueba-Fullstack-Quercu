@@ -1,28 +1,28 @@
 from flask import Flask
-from controller import controller
+from controller.controller import Controller
 
 app = Flask(__name__)
 
 # Rutas para Owner
-app.add_url_rule('/owners', 'getOwners', controller.getOwners, methods=['GET'])
-app.add_url_rule('/owners/<int:ownerId>', 'getOwner', controller.getOwner, methods=['GET'])
-app.add_url_rule('/owners', 'createOwner', controller.createOwner, methods=['POST'])
-app.add_url_rule('/owners/<int:ownerId>', 'updateOwner', controller.updateOwner, methods=['PUT'])
-app.add_url_rule('/owners/<int:ownerId>', 'deleteOwner', controller.deleteOwner, methods=['DELETE'])
+app.add_url_rule('/owners', 'getOwners', Controller.getOwners, methods=['GET'])
+app.add_url_rule('/owners/<int:ownerId>', 'getOwner', Controller.getOwner, methods=['GET'])
+app.add_url_rule('/owners', 'createOwner', Controller.createOwner, methods=['POST'])
+app.add_url_rule('/owners/<int:ownerId>', 'updateOwner', Controller.updateOwner, methods=['PUT'])
+app.add_url_rule('/owners/<int:ownerId>', 'deleteOwner', Controller.deleteOwner, methods=['DELETE'])
 
 # Rutas para Property
-app.add_url_rule('/properties', 'getProperties', controller.getProperties, methods=['GET'])
-app.add_url_rule('/properties/<int:propertyId>', 'getProperty', controller.getProperty, methods=['GET'])
-app.add_url_rule('/properties', 'createProperty', controller.createProperty, methods=['POST'])
-app.add_url_rule('/properties/<int:propertyId>', 'updateProperty', controller.updateProperty, methods=['PUT'])
-app.add_url_rule('/properties/<int:propertyId>', 'deleteProperty', controller.deleteProperty, methods=['DELETE'])
+app.add_url_rule('/properties', 'getProperties', Controller.getProperties, methods=['GET'])
+app.add_url_rule('/properties/<int:propertyId>', 'getProperty', Controller.getProperty, methods=['GET'])
+app.add_url_rule('/properties', 'createProperty', Controller.createProperty, methods=['POST'])
+app.add_url_rule('/properties/<int:propertyId>', 'updateProperty', Controller.updateProperty, methods=['PUT'])
+app.add_url_rule('/properties/<int:propertyId>', 'deleteProperty', Controller.deleteProperty, methods=['DELETE'])
 
 # Rutas para PropertyType
-app.add_url_rule('/propertyTypes', 'getPropertyTypes', controller.getPropertyTypes, methods=['GET'])
-app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'getPropertyType', controller.getPropertyType, methods=['GET'])
-app.add_url_rule('/propertyTypes', 'createPropertyType', controller.createPropertyType, methods=['POST'])
-app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'updatePropertyType', controller.updatePropertyType, methods=['PUT'])
-app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'deletePropertyType', controller.deletePropertyType, methods=['DELETE'])
+app.add_url_rule('/propertyTypes', 'getPropertyTypes', Controller.getPropertyTypes, methods=['GET'])
+app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'getPropertyType', Controller.getPropertyType, methods=['GET'])
+app.add_url_rule('/propertyTypes', 'createPropertyType', Controller.createPropertyType, methods=['POST'])
+app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'updatePropertyType', Controller.updatePropertyType, methods=['PUT'])
+app.add_url_rule('/propertyTypes/<int:propertyTypeId>', 'deletePropertyType', Controller.deletePropertyType, methods=['DELETE'])
 
 if __name__ == '__main__':
     app.run(debug=True)
