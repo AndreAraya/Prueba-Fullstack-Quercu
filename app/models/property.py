@@ -79,7 +79,19 @@ class Property:
         dbInstance = Database()
         cursor = dbInstance.get_cursor()
         try:
-            cursor.execute("SELECT * FROM Property")
+            cursor.execute("""
+            SELECT 
+                p.Id, 
+                pt.Description AS property_type, 
+                o.Name AS owner_name, 
+                p.Number, 
+                p.Address, 
+                p.Area, 
+                p.ConstructionArea 
+            FROM Property p
+            JOIN PropertyType pt ON p.PropertyTypeId = pt.Id
+            JOIN Owner o ON p.OwnerId = o.Id
+            """)
             results = cursor.fetchall()
             return results
         except Exception as e:

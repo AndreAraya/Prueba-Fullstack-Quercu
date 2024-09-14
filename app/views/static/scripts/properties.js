@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(property => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${property.id}</td>
-                    <td>${property.propertyTypeId}</td>
-                    <td>${property.ownerId}</td>
-                    <td>${property.number}</td>
-                    <td>${property.address}</td>
-                    <td>${property.area}</td>
-                    <td>${property.constructionArea}</td>
+                    <td>${property[0]}</td>  <!-- ID -->
+                    <td>${property[1]}</td>  <!-- PropertyTypeId -->
+                    <td>${property[2]}</td>  <!-- OwnerId -->
+                    <td>${property[3]}</td>  <!-- Number -->
+                    <td>${property[4]}</td>  <!-- Address -->
+                    <td>${property[5]}</td>  <!-- Area -->
+                    <td>${property[6]}</td>  <!-- ConstructionArea -->
                 `;
                 tableBody.appendChild(row);
             });

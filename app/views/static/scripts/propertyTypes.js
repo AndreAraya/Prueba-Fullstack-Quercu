@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(propertyType => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${propertyType.id}</td>
-                    <td>${propertyType.description}</td>
+                    <td>${propertyType[0]}</td>  <!-- ID -->
+                    <td>${propertyType[1]}</td>  <!-- Description -->
                 `;
                 tableBody.appendChild(row);
             });
         })
         .catch(error => console.error('Error:', error));
 });
+

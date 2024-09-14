@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const path = require('path');
 
@@ -11,11 +10,22 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 // Manejar rutas de API y redirigirlas al backend
 app.use('/api', (req, res) => {
-    const apiUrl = `http://localhost:5000${req.url}`;
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => res.json(data))
-        .catch(error => res.status(500).json({ error: 'Error fetching data from backend' }));
+  const apiUrl = `http://localhost:5000${req.url}`;
+  console.log(`Request URL: ${apiUrl}`); // Verificar la URL solicitada
+
+  fetch(apiUrl)
+      .then(response => {
+          console.log(`Backend response status: ${response.status}`); // Verifica el estado de la respuesta
+          return response.json();
+      })
+      /*.then(data => {
+          console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
+          res.json(data);
+      }) */
+      .catch(error => {
+          console.error('Error fetching data from backend:', error); // Captura errores y muestra el error
+          res.status(500).json({ error: 'Error fetching data from backend' });
+      });
 });
 
 // Manejar ruta para la página principal
