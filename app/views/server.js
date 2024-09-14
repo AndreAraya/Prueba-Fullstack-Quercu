@@ -11,7 +11,6 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 // Manejar rutas de API y redirigirlas al backend
 app.use('/api', (req, res) => {
-    // Reemplaza 'http://localhost:5000' con la URL de tu servidor Flask
     const apiUrl = `http://localhost:5000${req.url}`;
     fetch(apiUrl)
         .then(response => response.json())

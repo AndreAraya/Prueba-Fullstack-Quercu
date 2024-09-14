@@ -32,6 +32,11 @@ class Database:
                 self.cursor.close()
             self.connection.close()
             print("Conexión cerrada")
+            
+    def get_cursor(self):
+        if not self.connection:
+            self.connect()
+        return self.connection.cursor()
 
     def create_tables(self):
         try:
@@ -60,12 +65,15 @@ class Database:
                 ConstructionArea DECIMAL NOT NULL
             );
             '''
-            self.cursor.execute(create_tables_query)
+            cursor = self.get_cursor()
+            cursor.execute(create_tables_query)
             self.connection.commit()
             print("Tablas creadas correctamente")
-
         except Error as e:
             print(f"Error al crear las tablas: {e}")
+        finally:
+            if cursor:
+                cursor.close()
 
 # Uso del singleton para la conexión y creación de tablas
 def main():
