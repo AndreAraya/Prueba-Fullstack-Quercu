@@ -1,22 +1,18 @@
 from flask import Flask, jsonify, request
-from database import dbInstance
-from models import Owner, Property, PropertyType
+from models import owner, property, propertyType
 
 app = Flask(__name__)
-
-from flask import jsonify, request
-from models import Owner, Property, PropertyType
 
 class Controller:
 
     @staticmethod
     def getOwners():
-        owners = Owner.getAll()
+        owners = owner.getAll()
         return jsonify(owners)
 
     @staticmethod
     def getOwner(ownerId):
-        owner = Owner.get(ownerId)
+        owner = owner.get(ownerId)
         if owner:
             return jsonify(owner)
         else:
@@ -25,14 +21,14 @@ class Controller:
     @staticmethod
     def createOwner():
         data = request.get_json()
-        newOwner = Owner(name=data['name'], telephone=data['telephone'], email=data['email'], identificationNumber=data['identificationNumber'], address=data['address'])
-        Owner.createOwner(newOwner)
+        newOwner = owner(name=data['name'], telephone=data['telephone'], email=data['email'], identificationNumber=data['identificationNumber'], address=data['address'])
+        owner.createOwner(newOwner)
         return jsonify({'message': 'Owner created successfully'}), 201
 
     @staticmethod
     def updateOwner(ownerId):
         data = request.get_json()
-        updatedOwner = Owner.update(ownerId, data)
+        updatedOwner = owner.update(ownerId, data)
         if updatedOwner:
             return jsonify({'message': 'Owner updated successfully'})
         else:
@@ -40,7 +36,7 @@ class Controller:
 
     @staticmethod
     def deleteOwner(ownerId):
-        result = Owner.delete(ownerId)
+        result = owner.delete(ownerId)
         if result:
             return jsonify({'message': 'Owner deleted successfully'})
         else:
@@ -48,12 +44,12 @@ class Controller:
 
     @staticmethod
     def getProperties():
-        properties = Property.getAll()
+        properties = property.getAll()
         return jsonify(properties)
 
     @staticmethod
     def getProperty(propertyId):
-        property = Property.get(propertyId)
+        property = property.get(propertyId)
         if property:
             return jsonify(property)
         else:
@@ -62,14 +58,14 @@ class Controller:
     @staticmethod
     def createProperty():
         data = request.get_json()
-        newProperty = Property(propertyTypeId=data['propertyTypeId'], ownerId=data['ownerId'], number=data['number'], address=data['address'], area=data['area'], constructionArea=data['constructionArea'])
-        Property.create(newProperty)
+        newProperty = property(propertyTypeId=data['propertyTypeId'], ownerId=data['ownerId'], number=data['number'], address=data['address'], area=data['area'], constructionArea=data['constructionArea'])
+        property.create(newProperty)
         return jsonify({'message': 'Property created successfully'}), 201
 
     @staticmethod
     def updateProperty(propertyId):
         data = request.get_json()
-        updatedProperty = Property.update(propertyId, data)
+        updatedProperty = property.update(propertyId, data)
         if updatedProperty:
             return jsonify({'message': 'Property updated successfully'})
         else:
@@ -77,7 +73,7 @@ class Controller:
 
     @staticmethod
     def deleteProperty(propertyId):
-        result = Property.delete(propertyId)
+        result = property.delete(propertyId)
         if result:
             return jsonify({'message': 'Property deleted successfully'})
         else:
@@ -85,12 +81,12 @@ class Controller:
 
     @staticmethod
     def getPropertyTypes():
-        propertyTypes = PropertyType.getAll()
+        propertyTypes = propertyType.getAll()
         return jsonify(propertyTypes)
 
     @staticmethod
     def getPropertyType(propertyTypeId):
-        propertyType = PropertyType.get(propertyTypeId)
+        propertyType = propertyType.get(propertyTypeId)
         if propertyType:
             return jsonify(propertyType)
         else:
@@ -99,14 +95,14 @@ class Controller:
     @staticmethod
     def createPropertyType():
         data = request.get_json()
-        newPropertyType = PropertyType(description=data['description'])
-        PropertyType.create(newPropertyType)
+        newPropertyType = propertyType(description=data['description'])
+        propertyType.create(newPropertyType)
         return jsonify({'message': 'PropertyType created successfully'}), 201
 
     @staticmethod
     def updatePropertyType(propertyTypeId):
         data = request.get_json()
-        updatedPropertyType = PropertyType.update(propertyTypeId, data)
+        updatedPropertyType = propertyType.update(propertyTypeId, data)
         if updatedPropertyType:
             return jsonify({'message': 'PropertyType updated successfully'})
         else:
@@ -114,7 +110,7 @@ class Controller:
 
     @staticmethod
     def deletePropertyType(propertyTypeId):
-        result = PropertyType.delete(propertyTypeId)
+        result = propertyType.delete(propertyTypeId)
         if result:
             return jsonify({'message': 'PropertyType deleted successfully'})
         else:
