@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, request
-from database import dbInstance
-from models import Owner, Property, PropertyType
+from models.owner import Owner
+from models.property import Property
+from models.propertyType import PropertyType
 
 app = Flask(__name__)
-
-from flask import jsonify, request
-from models import Owner, Property, PropertyType
 
 class Controller:
 
@@ -63,7 +61,7 @@ class Controller:
     def createProperty():
         data = request.get_json()
         newProperty = Property(propertyTypeId=data['propertyTypeId'], ownerId=data['ownerId'], number=data['number'], address=data['address'], area=data['area'], constructionArea=data['constructionArea'])
-        Property.create(newProperty)
+        property.create(newProperty)
         return jsonify({'message': 'Property created successfully'}), 201
 
     @staticmethod
