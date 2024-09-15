@@ -51,7 +51,7 @@ class Controller:
 
     @staticmethod
     def getProperty(propertyId):
-        property = Property.get(propertyId)
+        property = Property.getById(propertyId)
         if property:
             return jsonify(property)
         else:
@@ -60,14 +60,30 @@ class Controller:
     @staticmethod
     def createProperty():
         data = request.get_json()
-        newProperty = Property(propertyTypeId=data['propertyTypeId'], ownerId=data['ownerId'], number=data['number'], address=data['address'], area=data['area'], constructionArea=data['constructionArea'])
-        property.create(newProperty)
+
+        propertyTypeId = data['propertyTypeId']
+        ownerId = data['ownerId']
+        number = data['number']
+        address = data['address']
+        area = data['area']
+        constructionArea = data.get('constructionArea')
+        
+        Property.create(propertyTypeId, ownerId, number, address, area, constructionArea)
         return jsonify({'message': 'Property created successfully'}), 201
 
     @staticmethod
     def updateProperty(propertyId):
         data = request.get_json()
-        updatedProperty = Property.update(propertyId, data)
+        if not data or 'propertyTypeId' not in data or 'ownerId' not in data or 'number' not in data or 'address' not in data or 'area' not in data:
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        propertyTypeId = data['propertyTypeId']
+        ownerId = data['ownerId']
+        number = data['number']
+        address = data['address']
+        area = data['area']
+        constructionArea = data.get('constructionArea')
+        updatedProperty = Property.update(propertyId, propertyTypeId, ownerId, number, address, area, constructionArea)
         if updatedProperty:
             return jsonify({'message': 'Property updated successfully'})
         else:

@@ -7,25 +7,46 @@ const port = process.env.PORT || 3000;
 // Servir archivos estáticos desde la carpeta 'static'
 app.use(express.static(path.join(__dirname, 'static')));
 
+// Middleware para parsear JSON
+app.use(express.json());
 
 // Manejar rutas de API y redirigirlas al backend
 app.use('/api', (req, res) => {
   const apiUrl = `http://localhost:5000${req.url}`;
   console.log(`Request URL: ${apiUrl}`); // Verificar la URL solicitada
+  
+  let body;
+  if (req.method === 'POST' || req.method === 'PUT') {
+    body = JSON.stringify(req.body);
+  }
 
-  fetch(apiUrl)
-      .then(response => {
-          console.log(`Backend response status: ${response.status}`); // Verifica el estado de la respuesta
-          return response.json();
-      })
-      .then(data => {
-          console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
-          res.json(data);
-      }) 
-      .catch(error => {
-          console.error('Error fetching data from backend:', error); // Captura errores y muestra el error
-          res.status(500).json({ error: 'Error fetching data from backend' });
-      });
+  const options = {
+    method: req.method,
+    headers: req.headers,
+    body: body
+  };
+
+  // Manejo especial para DELETE
+  if (req.method === 'DELETE') {
+    // Si DELETE no tiene cuerpo, eliminamos la propiedad body de options
+    if (!body) {
+      delete options.body;
+    }
+  }
+
+  fetch(apiUrl, options)
+    .then(response => {
+      console.log(`Backend response status: ${response.status}`); // Verifica el estado de la respuesta
+      return response.json();
+    })
+    .then(data => {
+      console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
+      res.json(data);
+    }) 
+    .catch(error => {
+      console.error('Error fetching data from backend:', error); // Captura errores y muestra el error
+      res.status(500).json({ error: 'Error fetching data from backend' });
+    });
 });
 
 // Manejar ruta para la página principal

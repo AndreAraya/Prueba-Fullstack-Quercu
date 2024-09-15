@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 checkbox.addEventListener('change', function() {
                         const selectedCheckboxes = document.querySelectorAll('.property-checkbox:checked');
                         editButton.disabled = selectedCheckboxes.length !== 1;
-                        deleteButton.disabled = selectedCheckboxes.length === 0;
+                        deleteButton.disabled = selectedCheckboxes.length !== 1;
                     /*const propertyId = this.getAttribute('data-id'); 
                     if (this.checked) {
                         console.log(`Selected property ID: ${propertyId}`);
@@ -41,20 +41,39 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
 
         createButton.addEventListener('click', function() {
-            alert('Crear nuevo registro');
+            window.location.href = 'createProperty.html';
         });
 
         editButton.addEventListener('click', function() {
             const selectedCheckbox = document.querySelector('.property-checkbox:checked');
             if (selectedCheckbox) {
                 const propertyId = selectedCheckbox.getAttribute('data-id');
-                alert(`Editar propiedad con ID: ${propertyId}`);
+                window.location.href = `editProperty.html?id=${propertyId}`;
             }
         });
 
         deleteButton.addEventListener('click', function() {
-            const selectedCheckboxes = document.querySelectorAll('.property-checkbox:checked');
-            const idsToDelete = Array.from(selectedCheckboxes).map(cb => cb.getAttribute('data-id'));
-            alert(`Eliminar propiedades con IDs: ${idsToDelete.join(', ')}`);
-        });
+            const selectedCheckbox = document.querySelector('.property-checkbox:checked');
+            if (selectedCheckbox) {
+                const propertyId = selectedCheckbox.getAttribute('data-id');
+                if (confirm(`¿Estás seguro de que quieres eliminar la propiedad con ID: ${propertyId}?`)) {
+                    fetch(`/api/properties/${propertyId}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert('Propiedad eliminada con éxito');
+                        location.reload(); // Recargar la página para actualizar la lista de propiedades
+                    })
+                    .catch(error => console.error('Error deleting property:', error));
+                }
+            } else {
+                alert('Debes seleccionar una propiedad para eliminar.');
+            }
+        });      
 });

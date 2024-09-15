@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Propiedad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Propiedad</h1>
+        <form id="editPropertyForm">
+            <div id="formContainer">
+            <div class="form-group">
+                <label for="propertyNumber">Número de Propiedad</label>
+                <input type="text" id="propertyNumber" name="propertyNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="propertyAddress">Dirección</label>
+                <input type="text" id="propertyAddress" name="propertyAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="propertyArea">Área</label>
+                <input type="number" id="propertyArea" name="propertyArea" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="propertyConstructionArea">Área de Construcción</label>
+                <input type="number" id="propertyConstructionArea" name="propertyConstructionArea" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label for="propertyType">Tipo de Propiedad</label>
+                <select id="propertyType" name="propertyType" required>
+                    <!-- Opciones se llenarán con JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="owner">Dueño</label>
+                <select id="owner" name="owner" required>
+                    <!-- Opciones se llenarán con JS -->
+                </select>
+            </div>
+            <button id="submitEdit">Guardar Cambios</button>
+        </form>
+        <a href="properties.html" class="button">Volver a Propiedades</a>
+    </div>
+    <script src="scripts/editProperty.js"></script>
+</body>
+</html>
+
