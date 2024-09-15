@@ -18,10 +18,10 @@ app.use('/api', (req, res) => {
           console.log(`Backend response status: ${response.status}`); // Verifica el estado de la respuesta
           return response.json();
       })
-      /*.then(data => {
+      .then(data => {
           console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
           res.json(data);
-      }) */
+      }) 
       .catch(error => {
           console.error('Error fetching data from backend:', error); // Captura errores y muestra el error
           res.status(500).json({ error: 'Error fetching data from backend' });

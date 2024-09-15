@@ -65,3 +65,42 @@ body {
     tr:hover {
         background-color: #f1f1f1;
     }
+
+    /* alinear los elementos verticalmente */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px; 
+    }
+
+    .table-container {
+      width: 100%;
+    }
+
+    /* .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px; /* Espaciado entre los botones 
+    }
+
+    .action-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .action-button:hover {
+      background-color: #0056b3;
+    }
+
+  .action-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  */
