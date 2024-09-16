@@ -9,7 +9,7 @@ La verdad me diverti mucho haciendo este proyecto y agradezco la oportunidad que
 - **Frontend:** Node.js
 - **Base de Datos:** PostgreSQL en la nube con Aiven
   
-Las credenciales de Aiven estan amarradas en el db.py para su facilidad, ya que no comprometen información delicada.
+Las credenciales de Aiven estan amarradas en el `db.py` para su facilidad, ya que no comprometen información delicada.
 
 ## Ejecución del Proyecto
 
