@@ -62,7 +62,7 @@ class Database:
                 Number VARCHAR(255) NOT NULL,
                 Address VARCHAR(255) NOT NULL,
                 Area DECIMAL NOT NULL,
-                ConstructionArea DECIMAL NOT NULL
+                ConstructionArea DECIMAL
             );
             '''
             cursor = self.get_cursor()

@@ -14,7 +14,7 @@ class Controller:
 
     @staticmethod
     def getOwner(ownerId):
-        owner = Owner.get(ownerId)
+        owner = Owner.getById(ownerId)
         if owner:
             return jsonify(owner)
         else:
@@ -23,18 +23,25 @@ class Controller:
     @staticmethod
     def createOwner():
         data = request.get_json()
-        newOwner = Owner(name=data['name'], telephone=data['telephone'], email=data['email'], identificationNumber=data['identificationNumber'], address=data['address'])
-        Owner.createOwner(newOwner)
+        name=data['name']
+        telephone=data['telephone']
+        email=data.get('email')
+        identificationNumber=data['identificationNumber']
+        address=data.get('address')
+        Owner.create(name, telephone, email, identificationNumber, address)
         return jsonify({'message': 'Owner created successfully'}), 201
 
     @staticmethod
     def updateOwner(ownerId):
         data = request.get_json()
-        updatedOwner = Owner.update(ownerId, data)
-        if updatedOwner:
-            return jsonify({'message': 'Owner updated successfully'})
-        else:
-            return jsonify({'message': 'Owner not found'}), 404
+        name=data['name']
+        telephone=data['telephone']
+        email=data.get('email')
+        identificationNumber=data['identificationNumber']
+        address=data.get('address')
+        Owner.update(ownerId, name, telephone, email, identificationNumber, address)
+        return jsonify({'message': 'Owner updated successfully'})
+
 
     @staticmethod
     def deleteOwner(ownerId):
@@ -51,7 +58,7 @@ class Controller:
 
     @staticmethod
     def getProperty(propertyId):
-        property = Property.get(propertyId)
+        property = Property.getById(propertyId)
         if property:
             return jsonify(property)
         else:
@@ -60,14 +67,30 @@ class Controller:
     @staticmethod
     def createProperty():
         data = request.get_json()
-        newProperty = Property(propertyTypeId=data['propertyTypeId'], ownerId=data['ownerId'], number=data['number'], address=data['address'], area=data['area'], constructionArea=data['constructionArea'])
-        property.create(newProperty)
+
+        propertyTypeId = data['propertyTypeId']
+        ownerId = data['ownerId']
+        number = data['number']
+        address = data['address']
+        area = data['area']
+        constructionArea = data.get('constructionArea')
+        
+        Property.create(propertyTypeId, ownerId, number, address, area, constructionArea)
         return jsonify({'message': 'Property created successfully'}), 201
 
     @staticmethod
     def updateProperty(propertyId):
         data = request.get_json()
-        updatedProperty = Property.update(propertyId, data)
+        if not data or 'propertyTypeId' not in data or 'ownerId' not in data or 'number' not in data or 'address' not in data or 'area' not in data:
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        propertyTypeId = data['propertyTypeId']
+        ownerId = data['ownerId']
+        number = data['number']
+        address = data['address']
+        area = data['area']
+        constructionArea = data.get('constructionArea')
+        updatedProperty = Property.update(propertyId, propertyTypeId, ownerId, number, address, area, constructionArea)
         if updatedProperty:
             return jsonify({'message': 'Property updated successfully'})
         else:
@@ -97,18 +120,19 @@ class Controller:
     @staticmethod
     def createPropertyType():
         data = request.get_json()
-        newPropertyType = PropertyType(description=data['description'])
-        PropertyType.create(newPropertyType)
+        description=data['description']
+        PropertyType.create(description)
         return jsonify({'message': 'PropertyType created successfully'}), 201
 
     @staticmethod
     def updatePropertyType(propertyTypeId):
+        print("AQUI LLEGO!")
         data = request.get_json()
-        updatedPropertyType = PropertyType.update(propertyTypeId, data)
-        if updatedPropertyType:
-            return jsonify({'message': 'PropertyType updated successfully'})
-        else:
-            return jsonify({'message': 'PropertyType not found'}), 404
+        description=data['description']
+        print("AQUI LLEGO!!!")
+        PropertyType.update(propertyTypeId, description)
+        return jsonify({'message': 'PropertyType updated successfully'})
+
 
     @staticmethod
     def deletePropertyType(propertyTypeId):

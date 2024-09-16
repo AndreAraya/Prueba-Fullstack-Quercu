@@ -9,17 +9,26 @@
 <body>
     <div class="container">
         <h1>Tipos de Propiedad</h1>
-        <table id="propertyTypesTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- -->
-            </tbody>
-        </table>
+        <div class="action-buttons">
+            <button id="createButton" href="createPropertyType.html" class="action-button">Crear</button>
+            <button id="editButton" href="editPropertyType.html" class="action-button" disabled>Editar</button>
+            <button id="deleteButton" class="action-button" disabled>Eliminar</button>
+        </div>
+        <div class="content">
+            <div class="table-container">
+                <table id="propertyTypesTable">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <a href="/" class="button">Volver al Menú</a>
     </div>
     <script src="scripts/propertyTypes.js"></script>
