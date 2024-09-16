@@ -28,7 +28,6 @@ app.use('/api', (req, res) => {
 
   // Manejo especial para DELETE
   if (req.method === 'DELETE') {
-    // Si DELETE no tiene cuerpo, eliminamos la propiedad body de options
     if (!body) {
       delete options.body;
     }
@@ -40,7 +39,7 @@ app.use('/api', (req, res) => {
       return response.json();
     })
     .then(data => {
-      console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
+      //console.log('Data received from backend:', data); // Verifica los datos que vienen del backend
       res.json(data);
     }) 
     .catch(error => {

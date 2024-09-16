@@ -27,27 +27,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 checkbox.addEventListener('change', function() {
                     const selectedCheckboxes = document.querySelectorAll('.owner-checkbox:checked');
                     editButton.disabled = selectedCheckboxes.length !== 1;
-                    deleteButton.disabled = selectedCheckboxes.length === 0;
+                    deleteButton.disabled = selectedCheckboxes.length !== 1;
                 });
             });
         })
         .catch(error => console.error('Error:', error));
         createButton.addEventListener('click', function() {
-            alert('Crear nuevo dueño');
+            window.location.href = 'createOwner.html';
         });
     
         editButton.addEventListener('click', function() {
             const selectedCheckbox = document.querySelector('.owner-checkbox:checked');
             if (selectedCheckbox) {
                 const ownerId = selectedCheckbox.getAttribute('data-id');
-                alert(`Editar dueño con ID: ${ownerId}`);
+                window.location.href = `editOwner.html?id=${ownerId}`;
             }
         });
     
         deleteButton.addEventListener('click', function() {
-            const selectedCheckboxes = document.querySelectorAll('.owner-checkbox:checked');
-            const idsToDelete = Array.from(selectedCheckboxes).map(cb => cb.getAttribute('data-id'));
-            alert(`Eliminar dueños con IDs: ${idsToDelete.join(', ')}`);
+            const selectedCheckbox = document.querySelector('.owner-checkbox:checked');
+            if (selectedCheckbox) {
+                const ownerId = selectedCheckbox.getAttribute('data-id');
+                if (confirm(`¿Estás seguro de que quieres eliminar el propietario con ID: ${ownerId}?`)) {
+                    fetch(`/api/owners/${ownerId}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Owner not found') {
+                            alert('No se pudo eliminar. Puede que este dueño tenga propiedades registradas.');
+                        } else if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        } else {
+                            alert('Propietario eliminado con éxito');
+                            location.reload(); // Recargar la página para actualizar la lista de propietarios
+                        }
+                    })
+                    .catch(error => console.error('Error deleting owner:', error));
+                }
+            } else {
+                alert('Debes seleccionar un propietario para eliminar.');
+            }
         });
 });
 

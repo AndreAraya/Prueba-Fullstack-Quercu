@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(property => {
-                // Asumiendo que property es una lista de valores
                 document.getElementById('propertyNumber').value = property[3];
                 document.getElementById('propertyAddress').value = property[4];
                 document.getElementById('propertyArea').value = property[5];
